@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://127.0.0.1:8000/api/ai";
+const API_URL = "https://team-task-manager-backend-nswr.onrender.com/api/ai";
 
 export const generateAITasks = async (prompt) => {
   const token = localStorage.getItem("token");
