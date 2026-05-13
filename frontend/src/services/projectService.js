@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "https://team-task-manager-backend-nswr.onrender.com/api/projects";
+  "https://team-task-manager-production-cac0.up.railway.app/api/projects";
 
 // ==========================================
 // TOKEN
