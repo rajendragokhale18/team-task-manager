@@ -2,19 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
- 
-import projectRoutes from "./routes/projectRoutes.js";
-
-
-// FIX FOR NODE 18 + MONGODB UUID ISSUE
-
- 
 
 // ROUTES
-
 import authRoutes from "./routes/authRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 import aiRoutes from "./routes/aiRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
 
 // ==========================================
 // CONFIG
@@ -29,18 +22,22 @@ dotenv.config();
 const app = express();
 
 // ==========================================
-// MIDDLEWARES
+// CORS
 // ==========================================
 
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://YOUR-VERCEL-URL.vercel.app",
+      "https://team-task-manager-frontend-eta.vercel.app",
     ],
     credentials: true,
   })
 );
+
+// ==========================================
+// MIDDLEWARES
+// ==========================================
 
 app.use(express.json());
 
@@ -53,10 +50,16 @@ app.use(express.urlencoded({ extended: true }));
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("✅ MongoDB Connected:", mongoose.connection.host);
+    console.log(
+      "✅ MongoDB Connected:",
+      mongoose.connection.host
+    );
   })
   .catch((error) => {
-    console.log("❌ MongoDB Error:", error.message);
+    console.log(
+      "❌ MongoDB Error:",
+      error.message
+    );
   });
 
 // ==========================================
@@ -66,6 +69,7 @@ mongoose
 app.use("/api/auth", authRoutes);
 
 app.use("/api/tasks", taskRoutes);
+
 app.use("/api/projects", projectRoutes);
 
 app.use("/api/ai", aiRoutes);
@@ -85,5 +89,7 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(
+    `🚀 Server running on port ${PORT}`
+  );
 });
