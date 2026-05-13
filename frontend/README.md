@@ -8,7 +8,7 @@ Modern AI-powered project and task management platform built using the MERN stac
 
 **Frontend:** https://your-vercel-url.vercel.app  
 **Backend API:** https://your-railway-url.up.railway.app  
-**GitHub Repository:** https://github.com/your-username/team-task-manager
+**GitHub Repository:** https://github.com/rajendragokhale18/team-task-manager
 
 ---
 
