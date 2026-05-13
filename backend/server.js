@@ -2,13 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import crypto from "crypto";
+ 
 import projectRoutes from "./routes/projectRoutes.js";
 
 
 // FIX FOR NODE 18 + MONGODB UUID ISSUE
 
-global.crypto = crypto;
+ 
 
 // ROUTES
 
