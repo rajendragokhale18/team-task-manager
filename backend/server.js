@@ -29,6 +29,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
+      "https://team-task-manager-snowy-five.vercel.app",
+      "https://team-task-manager-git-main-rajendras-projects18.vercel.app",
       "https://team-task-manager-frontend-eta.vercel.app",
     ],
     credentials: true,
