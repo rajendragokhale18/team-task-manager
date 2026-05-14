@@ -2,13 +2,16 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 
+// ==========================================
 // REGISTER USER
+// ==========================================
+
 export const registerUser = async (req, res) => {
   try {
-    const { name, email, password } =
-      req.body;
+    const { name, email, password } = req.body;
 
     // CHECK USER
+
     const userExists = await User.findOne({
       email,
     });
@@ -21,6 +24,7 @@ export const registerUser = async (req, res) => {
     }
 
     // HASH PASSWORD
+
     const salt = await bcrypt.genSalt(10);
 
     const hashedPassword = await bcrypt.hash(
@@ -29,18 +33,23 @@ export const registerUser = async (req, res) => {
     );
 
     // CREATE USER
+
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
     });
 
+    // RESPONSE
+
     res.status(201).json({
       success: true,
-      _id: user._id,
-      name: user.name,
-      email: user.email,
       token: generateToken(user._id),
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
     });
   } catch (error) {
     console.log(
@@ -55,13 +64,16 @@ export const registerUser = async (req, res) => {
   }
 };
 
+// ==========================================
 // LOGIN USER
+// ==========================================
+
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } =
-      req.body;
+    const { email, password } = req.body;
 
     // FIND USER
+
     const user = await User.findOne({
       email,
     });
@@ -69,11 +81,12 @@ export const loginUser = async (req, res) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: "User not found",
+        message: "Invalid credentials",
       });
     }
 
-    // COMPARE PASSWORD
+    // CHECK PASSWORD
+
     const isMatch = await bcrypt.compare(
       password,
       user.password
@@ -82,32 +95,4 @@ export const loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: "Invalid password",
-      });
-    }
-
-    // SUCCESS
-    res.status(200).json({
-      success: true,
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
-    });
-  } catch (error) {
-    console.log(
-      "LOGIN ERROR:",
-      error
-    );
-
-    res.status(500).json({
-      success: false,
-      message: "Server Error",
-    });
-  }
-};
-
-// GET USER
-export const getMe = async (req, res) => {
-  res.json(req.user);
-};
+       
