@@ -42,11 +42,11 @@ export const registerUser = async (req, res) => {
       },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: error.message,
     });
   }
 };
@@ -86,11 +86,11 @@ export const loginUser = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
     res.status(500).json({
       success: false,
-      message: "Server Error",
+      message: error.message,
     });
   }
 };
