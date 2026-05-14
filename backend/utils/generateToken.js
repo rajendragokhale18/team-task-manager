@@ -35,7 +35,7 @@ const generateToken = (userId) => {
       { id: userId }, // Payload - data to encode in the token
       process.env.JWT_SECRET, // Secret key - used to sign the token
       {
-        expiresIn: process.env.JWT_EXPIRE || '7d', // Token expiration time
+        expiresIn: process.env.JWT_EXPIRE || '30d', // Token expiration time
         // expiresIn options:
         // '24h' - 24 hours
         // '7d' - 7 days
